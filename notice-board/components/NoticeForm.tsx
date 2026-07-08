@@ -56,7 +56,7 @@ export default function NoticeForm({ initialData, onSubmit, onCancel }: NoticeFo
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-xl shadow-md border border-gray-100 max-w-2xl mx-auto">
+    <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-xl shadow-md border border-gray-100 ">
       <h2 className="text-xl font-bold text-gray-900 mb-4">
         {initialData ? '✏️ Edit Existing Notice' : '📢 Create Brand New Notice'}
       </h2>
