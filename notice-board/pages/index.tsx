@@ -112,6 +112,7 @@ const Index = () => {
     } finally {
       setEditingNotice(null);
       setIsFormOpen(false);
+      window.location.reload(); 
     }
   };
 
