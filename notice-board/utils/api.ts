@@ -10,38 +10,27 @@ export interface NoticePayload {
 
 export const noticeApi = {
   getAll: async () => {
-    const response = await axiosInstance.get("/notices/list-notices");
+    const response = await axiosInstance.get("/api/notices/list-notices");
     return response.data;
   },
 
   getById: async (id: number) => {
-    const response = await axiosInstance.get(`/notices/get-notice?id=${id}`);
+    const response = await axiosInstance.get(`/api/notices/get-notice?id=${id}`,);
     return response.data;
   },
 
   create: async (data: NoticePayload) => {
-    const response = await axiosInstance.post(
-      "/notices/create-notice",
-      data
-    );
+    const response = await axiosInstance.post("/api/notices/create-notice",data,);
     return response.data;
   },
 
-  update: async (
-    id: number,
-    data: NoticePayload
-  ) => {
-    const response = await axiosInstance.put(
-      `/notices/update-notice?id=${id}`,
-      data
-    );
+  update: async (id: number, data: NoticePayload) => {
+    const response = await axiosInstance.put( `/api/notices/update-notice?id=${id}`, data, );
     return response.data;
   },
 
   delete: async (id: number) => {
-    const response = await axiosInstance.delete(
-      `/notices/delete-notice?id=${id}`
-    );
+    const response = await axiosInstance.delete( `/api/notices/delete-notice?id=${id}`, );
     return response.data;
   },
 };
