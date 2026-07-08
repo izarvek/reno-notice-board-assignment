@@ -112,7 +112,7 @@ const Index = () => {
     } finally {
       setEditingNotice(null);
       setIsFormOpen(false);
-      window.location.reload(); 
+      window.location.reload();
     }
   };
 
@@ -137,6 +137,7 @@ const Index = () => {
         {isFormOpen && (
           <div className="mb-8">
             <NoticeForm
+              key={editingNotice ? editingNotice.id : "new"}
               initialData={
                 editingNotice
                   ? {

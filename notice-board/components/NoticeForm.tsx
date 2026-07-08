@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from "react";
 
 export enum Category {
-  Exam = 'Exam',
-  Event = 'Event',
-  General = 'General'
+  Exam = "Exam",
+  Event = "Event",
+  General = "General",
 }
 
 export enum Priority {
-  Normal = 'Normal',
-  Urgent = 'Urgent'
+  Normal = "Normal",
+  Urgent = "Urgent",
 }
 
 export interface Notice {
@@ -19,32 +19,37 @@ export interface Notice {
   publishDate: string;
 }
 
-interface NoticeFormProps { initialData?: Notice | null; onSubmit: (data: Partial<Notice>) => void; onCancel: () => void; }
+interface NoticeFormProps {
+  initialData?: Notice | null;
+  onSubmit: (data: Partial<Notice>) => void;
+  onCancel: () => void;
+}
 
-export default function NoticeForm({ initialData, onSubmit, onCancel }: NoticeFormProps) {
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
-  const [category, setCategory] = useState<Category>(Category.General);
-  const [priority, setPriority] = useState<Priority>(Priority.Normal);
+export default function NoticeForm({
+  initialData,
+  onSubmit,
+  onCancel,
+}: NoticeFormProps) {
+  const getInitialState = () => ({
+    title: initialData?.title ?? "",
+    body: initialData?.body ?? "",
+    category: initialData?.category ?? Category.General,
+    priority: initialData?.priority ?? Priority.Normal,
+  });
 
-  useEffect(() => {
-    if (initialData) {
-      setTitle(initialData.title);
-      setBody(initialData.body);
-      setCategory(initialData.category);
-      setPriority(initialData.priority);
-    } else {
-      setTitle('');
-      setBody('');
-      setCategory(Category.General);
-      setPriority(Priority.Normal);
-    }
-  }, [initialData]);
+  const [title, setTitle] = useState(getInitialState().title);
+  const [body, setBody] = useState(getInitialState().body);
+  const [category, setCategory] = useState<Category>(
+    getInitialState().category,
+  );
+  const [priority, setPriority] = useState<Priority>(
+    getInitialState().priority,
+  );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim() || !body.trim()) {
-      return alert('Please fill out the Title and Body fields.');
+      return alert("Please fill out the Title and Body fields.");
     }
     onSubmit({
       title,
@@ -56,13 +61,18 @@ export default function NoticeForm({ initialData, onSubmit, onCancel }: NoticeFo
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-xl shadow-md border border-gray-100 ">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-4 bg-white p-6 rounded-xl shadow-md border border-gray-100 "
+    >
       <h2 className="text-xl font-bold text-gray-900 mb-4">
-        {initialData ? '✏️ Edit Existing Notice' : '📢 Create Brand New Notice'}
+        {initialData ? "✏️ Edit Existing Notice" : "📢 Create Brand New Notice"}
       </h2>
-       {/* Title */}
+      {/* Title */}
       <div>
-        <label className="block text-sm font-semibold text-gray-700 mb-1">Title</label>
+        <label className="block text-sm font-semibold text-gray-700 mb-1">
+          Title
+        </label>
         <input
           type="text"
           value={title}
@@ -73,7 +83,9 @@ export default function NoticeForm({ initialData, onSubmit, onCancel }: NoticeFo
       </div>
       {/* Body */}
       <div>
-        <label className="block text-sm font-semibold text-gray-700 mb-1">Body Content</label>
+        <label className="block text-sm font-semibold text-gray-700 mb-1">
+          Body Content
+        </label>
         <textarea
           value={body}
           onChange={(e) => setBody(e.target.value)}
@@ -86,7 +98,9 @@ export default function NoticeForm({ initialData, onSubmit, onCancel }: NoticeFo
       <div className="grid grid-cols-2 gap-4">
         {/* Category */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1">Category</label>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">
+            Category
+          </label>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value as Category)}
@@ -101,7 +115,9 @@ export default function NoticeForm({ initialData, onSubmit, onCancel }: NoticeFo
         </div>
         {/* Priority */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1">Priority</label>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">
+            Priority
+          </label>
           <select
             value={priority}
             onChange={(e) => setPriority(e.target.value as Priority)}
@@ -128,7 +144,7 @@ export default function NoticeForm({ initialData, onSubmit, onCancel }: NoticeFo
           type="submit"
           className="px-4 py-2 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm transition-colors"
         >
-          {initialData ? 'Update Notice' : 'Publish Notice'}
+          {initialData ? "Update Notice" : "Publish Notice"}
         </button>
       </div>
     </form>
